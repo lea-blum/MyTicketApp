@@ -28,16 +28,13 @@ const TicketsList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // ===== סינונים =====
   const [filterStatus, setFilterStatus] = useState<number | "all">("all");
   const [filterAgent, setFilterAgent] = useState<number | "all">("all");
   const [filterDateFrom, setFilterDateFrom] = useState<string>("");
   const [filterDateTo, setFilterDateTo] = useState<string>("");
 
-  // ✅ token יציב
   const token = localStorage.getItem("token");
 
-  // ✅ user יציב
   const user = useMemo(() => {
     if (!token) return null;
     try {
@@ -59,16 +56,13 @@ useEffect(() => {
     try {
       setLoading(true);
 
-      // ===== fetch statuses =====
       const statusData = await fetchStatuses();
       const statusMap: Record<number, string> = {};
       statusData.forEach((s: Status) => (statusMap[s.id] = s.name));
       setStatuses(statusMap);
 
-      // ===== fetch tickets =====
       const allTickets: Ticket[] = await fetchTickets();
 
-      // ===== סינון ראשוני לפי תפקיד =====
       let filtered: Ticket[] = [];
       if (user.role === "admin") {
         filtered = allTickets;
@@ -90,7 +84,6 @@ useEffect(() => {
   fetchData();
 }, [token, user.id, user.role]);
 
-  // ===== סינון טיקטים לפי קריטריונים נוספים =====
   const filteredTickets = tickets.filter((t) => {
     if (filterStatus !== "all" && t.status_id !== filterStatus) return false;
     if (filterAgent !== "all" && t.assigned_to !== filterAgent) return false;
@@ -101,11 +94,10 @@ useEffect(() => {
     return true;
   });
 
-  // ===== רשימת סוכנים ייחודית =====
   const uniqueAgents = Array.from(
     new Map(
       tickets
-        .filter(t => t.assigned_to_name) // רק טיקטים עם סוכן
+        .filter(t => t.assigned_to_name) 
         .map(t => [t.assigned_to, t])
     ).values()
   );
@@ -118,18 +110,13 @@ useEffect(() => {
       <Navbar />
       <div>
         <h2>רשימת טיקטים</h2>
-
-        {/* ===== UI לסינונים ===== */}
         <div style={{ marginBottom: 20, display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {/* סינון לפי סטטוס */}
           <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value === "all" ? "all" : Number(e.target.value))}>
             <option value="all">כל הסטטוסים</option>
             {Object.entries(statuses).map(([id, name]) => (
               <option key={id} value={id}>{name}</option>
             ))}
           </select>
-
-          {/* סינון לפי סוכן - רק אם admin */}
           {user.role === "admin" && (
             <select value={filterAgent} onChange={(e) => setFilterAgent(e.target.value === "all" ? "all" : Number(e.target.value))}>
               <option value="all">כל הסוכנים</option>
@@ -141,7 +128,6 @@ useEffect(() => {
             </select>
           )}
 
-          {/* סינון לפי תאריכים */}
           <div>
             <label htmlFor="from">
               מתאריך:
@@ -188,8 +174,6 @@ useEffect(() => {
                   : undefined
               }
             />
-
-            {/* אזור פעולות לטיקט */}
             {user.role !== "admin" && (
               <div
                 className="ticket-actions"

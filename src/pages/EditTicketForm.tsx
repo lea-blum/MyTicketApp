@@ -35,7 +35,6 @@ const EditTicketForm = ({ ticket, onUpdate }: Props) => {
     setAgentId(ticket.assigned_to ?? "");
   }, [ticket]);
 
-  /* ===== fetch statuses ===== */
   useEffect(() => {
     const loadStatuses = async () => {
       try {
@@ -49,7 +48,6 @@ const EditTicketForm = ({ ticket, onUpdate }: Props) => {
     loadStatuses();
   }, [token]);
 
-  /* ===== fetch agents (admin only) ===== */
   useEffect(() => {
     if (!isAdmin) return;
 
@@ -70,7 +68,6 @@ const EditTicketForm = ({ ticket, onUpdate }: Props) => {
     try {
       const body: any = { status_id: statusId };
 
-      // 🔐 רק Admin שולח assigned_to
       if (isAdmin && agentId !== "") {
         body.assigned_to = agentId;
       }

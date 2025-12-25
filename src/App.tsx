@@ -27,9 +27,6 @@ function App() {
   
  <div className="pt-16">
       <Routes>
-
-        {/* <Route path="user/:name/:age" element={<User />}>
-         <Route path="kkk" element={<div>אני נמצא כאן</div>}></Route> */}
         <Route path="/" element={<Login />} />
         <Route path="TicketDetails" element={<TicketDetails />} />
         <Route path="NewTicket" element={<NewTicket />} />
@@ -43,11 +40,6 @@ function App() {
         <Route path="/tickets/:id" element={<TicketDetails />} />
         <Route path="Register" element={<Register />} />
         <Route path="NewUser" element={<NewUser />} />
-
-           {/* <Route path="EditTicketForm" element={<EditTicketForm />} /> */}
-
-
-
         <Route path="*" element={<NotFound />}
         />
       </Routes>

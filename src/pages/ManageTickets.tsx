@@ -5,9 +5,6 @@ import { fetchTickets as fetchTicketsApi } from "../api/api";
 import EditTicketForm from "./EditTicketForm";
 import Navbar from "../components/Navbar";
 
-/* =====================
-   Types
-===================== */
 
 export interface Ticket {
   id: number;
@@ -19,10 +16,6 @@ export interface Ticket {
   created_at?: string;
 }
 
-/* =====================
-   Component
-===================== */
-
 const ManageTickets = () => {
   const { user, token, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -32,9 +25,7 @@ const ManageTickets = () => {
   const [error, setError] = useState<string | null>(null);
   const [editingTicketId, setEditingTicketId] = useState<number | null>(null);
 
-  /* =====================
-     Route Guard
-  ===================== */
+
 
   useEffect(() => {
     if (authLoading) return;
@@ -49,9 +40,7 @@ const ManageTickets = () => {
     }
   }, [user, authLoading, navigate]);
 
-  /* =====================
-     Fetch Tickets
-  ===================== */
+
 
   const loadTickets = async () => {
     try {
@@ -73,9 +62,7 @@ const ManageTickets = () => {
     if (token) loadTickets();
   }, [token, authLoading]);
 
-  /* =====================
-     Update Handler
-  ===================== */
+ 
 
   const handleUpdate = (updated: Ticket) => {
     setTickets((prev) =>
@@ -84,17 +71,12 @@ const ManageTickets = () => {
     setEditingTicketId(null);
   };
 
-  /* =====================
-     Render Guards
-  ===================== */
+
 
   if (authLoading) return <p>טוען משתמש...</p>;
   if (loading) return <p>טוען טיקטים...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
-  /* =====================
-     Render
-  ===================== */
 
   return (
     <>

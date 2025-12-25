@@ -7,9 +7,6 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 
-/* =======================
-   Types
-======================= */
 
 export interface User {
   id: number;
@@ -29,9 +26,7 @@ type Action =
   | { type: "LOGOUT" }
   | { type: "STOP_LOADING" };
 
-/* =======================
-   Initial State
-======================= */
+
 
 const initialState: AuthState = {
   user: null,
@@ -39,9 +34,7 @@ const initialState: AuthState = {
   loading: true,
 };
 
-/* =======================
-   Reducer
-======================= */
+
 
 function authReducer(state: AuthState, action: Action): AuthState {
   switch (action.type) {
@@ -79,9 +72,7 @@ function authReducer(state: AuthState, action: Action): AuthState {
   }
 }
 
-/* =======================
-   Context
-======================= */
+
 
 interface AuthContextValue {
   user: User | null;
@@ -93,24 +84,19 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-/* =======================
-   Provider
-======================= */
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  /* ---------- Login ---------- */
+
   const login = (user: User, token: string) => {
     dispatch({ type: "LOGIN", payload: { user, token } });
   };
 
-  /* ---------- Logout ---------- */
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
 
-  /* ---------- Load user on refresh ---------- */
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -151,9 +137,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-/* =======================
-   Hook
-======================= */
 
 export const useAuth = () => {
   const ctx = useContext(AuthContext);

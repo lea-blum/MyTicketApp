@@ -20,7 +20,6 @@ const NewUser: FunctionComponent = () => {
   const nav = useNavigate();
   const { user } = useAuth();
 
-  /* ===== Guard: Admin Only ===== */
   useEffect(() => {
     if (user && user.role !== "admin") {
       nav("/dashboard");

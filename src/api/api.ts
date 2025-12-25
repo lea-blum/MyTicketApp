@@ -7,7 +7,6 @@ const headers = (isJson = true) => ({
   ...(isJson ? { "Content-Type": "application/json" } : {}),
 });
 
-/* ========= AUTH ========= */
 
 export async function loginUser(email: string, password: string) {
   const res = await fetch(`${BASE_URL}/auth/login`, {
@@ -45,7 +44,6 @@ export async function getCurrentUser() {
   return res.json();
 }
 
-/* ========= USERS ========= */
 
 export async function fetchUsers() {
   const res = await fetch(`${BASE_URL}/users`, {
@@ -72,7 +70,6 @@ export async function createUser(data: {
   return result;
 }
 
-/* ========= TICKETS ========= */
 
 export async function fetchTickets() {
   const res = await fetch(`${BASE_URL}/tickets`, {
@@ -114,7 +111,6 @@ export async function updateTicket(id: number, payload: any) {
   return data;
 }
 
-/* ========= COMMENTS ========= */
 
 export async function fetchComments(ticketId: number) {
   const res = await fetch(`${BASE_URL}/tickets/${ticketId}/comments`, {
@@ -136,7 +132,6 @@ export async function addComment(ticketId: number, content: string) {
   return data;
 }
 
-/* ========= STATUSES ========= */
 
 export async function fetchStatuses() {
   const res = await fetch(`${BASE_URL}/statuses`, {
@@ -158,7 +153,6 @@ export async function createStatus(name: string) {
   return data;
 }
 
-/* ========= PRIORITIES ========= */
 
 export async function fetchPriorities() {
   const res = await fetch(`${BASE_URL}/priorities`, {

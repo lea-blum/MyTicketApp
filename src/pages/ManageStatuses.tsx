@@ -22,9 +22,8 @@ const ManageStatuses: FunctionComponent<ManageStatusesProps> = () => {
   const [newStatusName, setNewStatusName] = useState<string>("");
   const [adding, setAdding] = useState<boolean>(false);
 
-  /* ===== Route Guard – Admin only ===== */
   useEffect(() => {
-    if (authLoading) return; // ⏳ מחכים ל־Auth
+    if (authLoading) return; 
 
     if (!user) {
       navigate("/login");
@@ -36,7 +35,6 @@ const ManageStatuses: FunctionComponent<ManageStatusesProps> = () => {
     }
   }, [user, authLoading, navigate]);
 
-  /* ===== Fetch statuses ===== */
   useEffect(() => {
   if (authLoading) return;
   if (!token || user?.role !== "admin") return;
@@ -57,7 +55,6 @@ const ManageStatuses: FunctionComponent<ManageStatusesProps> = () => {
 
   loadStatuses();
 }, [token, user, authLoading]);
-  /* ===== Add new status ===== */
   const handleAddStatus = async () => {
   if (!newStatusName.trim()) return;
 

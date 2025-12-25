@@ -3,8 +3,8 @@ import { fetchComments } from "../api/api";
 
 interface Comment {
   id: number;
-  content: string;       // תוכן התגובה מהשרת
-  author_name: string;   // שם המחבר מהשרת
+  content: string;     
+  author_name: string;   
 }
 
 interface CommentsProps {
@@ -54,7 +54,7 @@ const Comments: FunctionComponent<CommentsProps> = ({ ticketId }) => {
           }}
         >
           <p>
-            <strong>{comment.author_name}</strong> {/* שם המחבר כפי שמגיע מהשרת */}
+            <strong>{comment.author_name}</strong> 
           </p>
           <p>{comment.content}</p>
         </div>

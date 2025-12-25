@@ -39,7 +39,7 @@ const TicketDetails = () => {
 
     if (!id) return;
 
-    const data = await fetchTicketById(Number(id)); // קריאה לפונקציה מ־api.ts
+    const data = await fetchTicketById(Number(id)); 
     setTicket(data);
     setComments(data.comments || []);
   } catch (err: any) {
@@ -58,9 +58,9 @@ const TicketDetails = () => {
   try {
     setSending(true);
 
-    await addComment(Number(id), newComment); // קריאה לפונקציה מ־api.ts
+    await addComment(Number(id), newComment); 
     setNewComment("");
-    fetchTicket(); // ריענון תגובות
+    fetchTicket(); 
   } catch (err: any) {
     alert(err.message || "שליחת התגובה נכשלה");
   } finally {

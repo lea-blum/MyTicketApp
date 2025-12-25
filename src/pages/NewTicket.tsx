@@ -25,9 +25,7 @@ const NewTicket: React.FC = () => {
 
   const nav = useNavigate();
 
-  /* =========================
-     Fetch tickets (FIXED)
-  ========================= */
+
 
   const loadTickets = async () => {
     try {
@@ -43,9 +41,7 @@ const NewTicket: React.FC = () => {
     loadTickets();
   }, []);
 
-  /* =========================
-     Submit
-  ========================= */
+
 
   const onSubmit = async (data: NewTicketForm) => {
     setServerError(null);
@@ -64,16 +60,13 @@ const NewTicket: React.FC = () => {
       setSuccessMessage("טיקט נוסף בהצלחה!");
       reset();
 
-      await loadTickets(); // טעינה מחדש – בלי רקורסיה
+      await loadTickets(); 
       nav("/TicketsList");
     } catch (err: any) {
       setServerError(err.message || "שגיאה בשליחת הטיקט");
     }
   };
 
-  /* =========================
-     Render
-  ========================= */
 
   return (
     <>
